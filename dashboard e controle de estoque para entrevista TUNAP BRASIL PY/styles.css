@@ -1,0 +1,330 @@
+:root {
+  --primary-color: #0066cc;
+  --secondary-color: #004d99;
+  --background-color: #f5f5f5;
+  --card-background: #ffffff;
+  --text-color: #333333;
+  --border-radius: 8px;
+  --shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.dashboard {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  min-width: 150px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.chart-card {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.chart-card h3 {
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.chart-container {
+  height: 300px;
+  width: 100%;
+}
+
+.metrics-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  grid-column: 1 / -1;
+}
+
+.metric-card {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.metric-card h4 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.metric-card p {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.inventory-section {
+  margin-top: 30px;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.produto-form {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  display: none;
+}
+
+.produto-form form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.produto-form input,
+.produto-form select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.produto-form button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.produto-form button[type="submit"]:hover {
+  background-color: var(--secondary-color);
+}
+
+.table-container {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.inventory-table th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+.inventory-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.estoque-baixo {
+  color: #ff4444;
+}
+
+.btn-movimento {
+  padding: 4px 8px;
+  margin: 0 2px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-entrada {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-saida {
+  background-color: #dc3545;
+  color: white;
+}
+
+.admin-section {
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-top: 20px;
+  box-shadow: var(--shadow);
+}
+
+.admin-controls {
+  margin-bottom: 20px;
+}
+
+.search-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.search-controls input,
+.search-controls select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.search-controls input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.admin-inventory-table th,
+.admin-inventory-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-inventory-table th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+.status-low {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.status-normal {
+  color: #28a745;
+}
+
+.status-high {
+  color: #17a2b8;
+}
+
+.detailed-inventory {
+  overflow-x: auto;
+}
+
+.inventory-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.inventory-actions select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.inventory-actions button {
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.inventory-actions button:hover {
+  background-color: var(--secondary-color);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  border-top: 1px solid #ddd;
+  color: var(--text-color);
+  font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 10px;
+  }
+  
+  .filters {
+    flex-direction: column;
+  }
+  
+  select, button {
+    width: 100%;
+  }
+}

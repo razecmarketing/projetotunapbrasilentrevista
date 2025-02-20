@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard TUNAP Brasil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>Dashboard de Vendas - TUNAP Brasil</h1>
+      <div class="filters">
+        <select id="periodoFilter">
+          <option value="all">Todos os Períodos</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+        </select>
+        <select id="regiaoFilter">
+          <option value="all">Todas as Regiões</option>
+          <option value="sudeste">Sudeste</option>
+          <option value="sul">Sul</option>
+          <option value="nordeste">Nordeste</option>
+          <option value="norte">Norte</option>
+          <option value="centro-oeste">Centro-Oeste</option>
+        </select>
+        <select id="categoriaFilter">
+          <option value="all">Todas as Categorias</option>
+          <option value="limpeza">Limpeza</option>
+          <option value="lubrificantes">Lubrificantes</option>
+          <option value="aditivos">Aditivos</option>
+        </select>
+        <button id="exportBtn">Exportar Relatório</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="grid-container">
+        <div class="chart-card" id="vendasTotais">
+          <h3>Vendas Totais</h3>
+          <div class="chart-container"></div>
+        </div>
+        
+        <div class="chart-card" id="produtosMaisVendidos">
+          <h3>Produtos Mais Vendidos</h3>
+          <div class="chart-container"></div>
+        </div>
+
+        <div class="chart-card" id="mapaCalor">
+          <h3>Mapa de Calor de Vendas</h3>
+          <div class="chart-container"></div>
+        </div>
+
+        <div class="chart-card" id="tendencias">
+          <h3>Tendências de Vendas</h3>
+          <div class="chart-container"></div>
+        </div>
+
+        <div class="metrics-container">
+          <div class="metric-card">
+            <h4>Receita Total</h4>
+            <p id="receitaTotal">R$ 0,00</p>
+          </div>
+          <div class="metric-card">
+            <h4>Crescimento YoY</h4>
+            <p id="crescimento">0%</p>
+          </div>
+          <div class="metric-card">
+            <h4>Ticket Médio</h4>
+            <p id="ticketMedio">R$ 0,00</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="inventory-section">
+      <div class="inventory-header">
+        <h2>Controle de Estoque</h2>
+        <div class="inventory-actions">
+          <button id="cadastrarProduto">Cadastrar Produto</button>
+          <select id="anoRelatorio">
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+          </select>
+          <select id="formatoExport">
+            <option value="pdf">PDF</option>
+            <option value="excel">Excel</option>
+          </select>
+          <button id="exportarEstoque">Exportar Relatório</button>
+          <button id="toggleAdminView">Área Administrativa</button>
+          <button id="generateComprehensiveReport">Gerar Relatório Completo</button>
+        </div>
+      </div>
+
+      <div id="adminView" class="admin-section" style="display: none;">
+        <div class="admin-controls">
+          <h3>Área Administrativa - Consulta de Estoque</h3>
+          <div class="search-controls">
+            <input type="text" id="searchProduct" placeholder="Buscar produto...">
+            <select id="filterCategory">
+              <option value="">Todas as Categorias</option>
+              <option value="limpeza">Limpeza</option>
+              <option value="lubrificantes">Lubrificantes</option>
+              <option value="aditivos">Aditivos</option>
+            </select>
+            <select id="stockStatus">
+              <option value="">Todos os Status</option>
+              <option value="low">Estoque Baixo</option>
+              <option value="normal">Estoque Normal</option>
+              <option value="high">Estoque Alto</option>
+            </select>
+          </div>
+        </div>
+        <div class="detailed-inventory">
+          <table class="admin-inventory-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Categoria</th>
+                <th>Qtd. Atual</th>
+                <th>Mínimo</th>
+                <th>Máximo</th>
+                <th>Status</th>
+                <th>Última Movimentação</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductList">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="formProduto" class="produto-form">
+        <form onsubmit="cadastrarProduto(event)">
+          <input type="text" placeholder="Código" required>
+          <input type="text" placeholder="Nome" required>
+          <input type="text" placeholder="Descrição">
+          <select required>
+            <option value="">Selecione a categoria</option>
+            <option value="limpeza">Limpeza</option>
+            <option value="lubrificantes">Lubrificantes</option>
+            <option value="aditivos">Aditivos</option>
+          </select>
+          <input type="text" placeholder="Unidade de Medida" required>
+          <input type="number" placeholder="Estoque Mínimo" required>
+          <input type="number" placeholder="Estoque Máximo" required>
+          <input type="number" placeholder="Quantidade Inicial" required>
+          <button type="submit">Salvar</button>
+        </form>
+      </div>
+
+      <div class="grid-container">
+        <div class="chart-card">
+          <h3>Níveis de Estoque</h3>
+          <div id="graficoEstoque" class="chart-container"></div>
+        </div>
+        
+        <div class="table-container">
+          <table class="inventory-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Qtd. Atual</th>
+                <th>Mínimo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tabelaProdutos">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <footer style="text-align: center; padding: 20px; margin-top: 40px; border-top: 1px solid #ddd;">
+      <p>Desenvolvido por Ceziano Cola Technology | Todos os Direitos Reservados 2025 | Projeto para TUNAP BRASIL</p>
+    </footer>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
